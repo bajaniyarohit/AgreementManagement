@@ -1,0 +1,105 @@
+﻿@model AgreementManagementApp.Models.AgreementViewModel
+
+@{ Layout = null; }
+<div class="modal-content">
+	<form class="needs-validation" novalidate asp-action="AddOrEdit" asp-route-id="@Model.Id" onsubmit="return jQueryAjaxPost(this);">
+		<div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabel">Agreement</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<div class="modal-body">
+			<input type="hidden" asp-for="Id" />
+			<input type="hidden" asp-for="ProductPrice" />
+			<input type="hidden" asp-for="UserId" />
+			<div class="form-group row">
+				<label asp-for="ProductGroupId" class="col-sm-3 col-form-label">Group:</label>
+				<div class="col-sm-9">
+					<select required id="ProductGroups" onchange="bindProduct()" asp-for="ProductGroupId" class="form-control" asp-items="@(new SelectList(@ViewBag.ProductGroup, "Id", "GroupCode"))">
+						<option value="">--Select--</option>
+					</select>
+					<div class="invalid-feedback">
+						Group is required field
+					</div>
+				</div>
+				<span asp-validation-for="ProductGroupId" class="text-danger"></span>
+			</div>
+			<div class="form-group row">
+				<label asp-for="ProductId" class="col-sm-3 col-form-label">Product:</label>
+				<div class="col-sm-9">
+					<select required id="Products" asp-for="ProductId" class="form-control" asp-items="@(new SelectList(@ViewBag.Product, "Id", "ProductNumber"))"></select>
+					<div class="invalid-feedback">
+						Product is required field
+					</div>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label asp-for="EffectiveDate" class="col-sm-3 col-form-label">Effective Date:</label>
+				<div class="col-sm-9">
+					<input required asp-for="EffectiveDate" data-date=""  data-date-format="DD/MM/YYYY" type="date" class="form-control" id="effectiveDate">
+					<div class="invalid-feedback">
+						Effective Date is required field
+					</div>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label asp-for="ExpirationDate" class="col-sm-3 col-form-label">Expriration Date:</label>
+				<div class="col-sm-9">
+					<input required asp-for="ExpirationDate" type="date" class="form-control" data-date=""  data-date-format="DD/MM/YYYY" id="exprirationDate">
+					<div class="invalid-feedback">
+						Expiration Date is required field
+					</div>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label asp-for="NewPrice" class="col-sm-3 col-form-label">New Price:</label>
+				<div class="col-sm-9">
+					<input required asp-for="NewPrice" type="number" class="form-control" id="newPrice" min="1">
+					<div class="invalid-feedback">
+						New Price is required field
+					</div>
+				</div>
+			</div>
+			<div class="form-group row">
+				<div class="col-sm-3">Active</div>
+				<div class="col-sm-9">
+					<div class="form-check">
+						<input asp-for="Active" class="form-check-input" type="checkbox" id="active">
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</div>
+	</form>
+</div>
+<script>
+	$(document).ready(function () {
+		$("#exprirationDate").on("change", function () {
+			if (this.value) {
+				this.setAttribute(
+					"data-date",
+					moment(this.value)
+						.format(this.getAttribute("data-date-format"))
+				)
+			} else {
+				this.setAttribute("data-date", "DD/MM/YYYY")
+			}
+		}).trigger("change");
+		$("#effectiveDate").on("change", function () {
+			if (this.value) {
+				this.setAttribute(
+					"data-date",
+					moment(this.value)
+						.format(this.getAttribute("data-date-format"))
+				)
+			} else {
+				this.setAttribute("data-date", "DD/MM/YYYY")
+			}
+		}).trigger("change");
+	});
+</script>
