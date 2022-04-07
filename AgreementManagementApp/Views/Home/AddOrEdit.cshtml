@@ -1,4 +1,4 @@
-﻿@model AgreementManagementApp.Models.AgreementViewModel
+﻿@model Services.ViewModels.Agreement.AgreementViewModel
 
 @{ Layout = null; }
 <div class="modal-content">
@@ -16,7 +16,7 @@
 			<div class="form-group row">
 				<label asp-for="ProductGroupId" class="col-sm-3 col-form-label">Group:</label>
 				<div class="col-sm-9">
-					<select required id="ProductGroups" onchange="bindProduct()" asp-for="ProductGroupId" class="form-control" asp-items="@(new SelectList(@ViewBag.ProductGroup, "Id", "GroupCode"))">
+					<select required id="ProductGroups" onchange="bindProduct()" asp-for="ProductGroupId" class="form-control" asp-items="@(new SelectList(Model.ProductGroups, "Id", "GroupCode"))">
 						<option value="">--Select--</option>
 					</select>
 					<div class="invalid-feedback">
@@ -28,7 +28,7 @@
 			<div class="form-group row">
 				<label asp-for="ProductId" class="col-sm-3 col-form-label">Product:</label>
 				<div class="col-sm-9">
-					<select required id="Products" asp-for="ProductId" class="form-control" asp-items="@(new SelectList(@ViewBag.Product, "Id", "ProductNumber"))"></select>
+					<select required id="Products" asp-for="ProductId" class="form-control" asp-items="@(new SelectList(Model.Products, "Id", "ProductNumber"))"></select>
 					<div class="invalid-feedback">
 						Product is required field
 					</div>

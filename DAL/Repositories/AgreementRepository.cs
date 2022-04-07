@@ -2,7 +2,10 @@
 using Domain.Entities;
 using Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace DAL.Repositories
 {
@@ -14,7 +17,7 @@ namespace DAL.Repositories
 
 		public IEnumerable<Agreement> GetAgreementAll()
 		{
-			return _context.Agreements.Include(p => p.ProductGroup).ThenInclude(p => p.Products);
+			return _context.Agreements.Include(p => p.ProductGroup).Include(p => p.Product).Include(p => p.User);
 		}
 	}
 }

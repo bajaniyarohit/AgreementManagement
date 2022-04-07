@@ -3,57 +3,42 @@
 });
 
 bindAgreement = () => {
-  $.ajax({
-    type: "POST",
-    url: "/Home/GetAgreement",
-    data: '{}',
-    contentType: "application/json; charset=utf-8",
-    dataType: "json",
-    success: OnSuccess,
-    failure: function (response) {
-      alert(response.d);
-    },
-    error: function (response) {
-      alert(response.d);
-    }
-  });
-}
-
-function OnSuccess(response) {
   $("#example").DataTable(
     {
+      "sAjaxSource": "/Home/GetAgreement",
       bLengthChange: true,
-      lengthMenu: [[5, 10, -1], [5, 10, "All"]],
+      bServerSide: true,
       bFilter: true,
       bSort: true,
+      bSearchable: true,
       bPaginate: true,
-      data: JSON.parse(response),
+      // data: JSON.parse(response),
       select: true,
       columns: [
-        { 'data': 'UserName', title: 'UserName', tooltip: 'UserId' },
+        { 'data': 'userName', title: 'User Name', tooltip: 'UserId' },
         {
-          'data': 'GroupCode', title: 'Group Code', "render": function (data, type, full, meta) {
+          'data': 'groupCode', title: 'Group Code', "render": function (data, type, full, meta) {
             return '<span data-toggle="tooltip" title="' + full.GroupDescription + '">' + data + '</span>';
         } },
         {
-          'data': 'ProductNumber', title: 'Product Number', "render": function (data, type, full, meta) {
+          'data': 'productNumber', title: 'Product Number', "render": function (data, type, full, meta) {
             return '<span data-toggle="tooltip" title="' + full.ProductDescription + '">' + data + '</span>';
           }
         },
-        { 'data': 'EffectiveDate', title: 'Effective Date', render: $.fn.dataTable.render.moment('YYYY-MM-DDTHH:mm:ss','MM/DD/YYYY') },
-        { 'data': 'ExpirationDate', title: 'Expiration Date', render: $.fn.dataTable.render.moment('YYYY-MM-DDTHH:mm:ss', 'MM/DD/YYYY') },
-        { 'data': 'ProductPrice', title: 'Product Price' },
-        { 'data': 'NewPrice', title: 'New Price' },
+        { 'data': 'effectiveDate', title: 'Effective Date', render: $.fn.dataTable.render.moment('YYYY-MM-DDTHH:mm:ss','MM/DD/YYYY') },
+        { 'data': 'expirationDate', title: 'Expiration Date', render: $.fn.dataTable.render.moment('YYYY-MM-DDTHH:mm:ss', 'MM/DD/YYYY') },
+        { 'data': 'productPrice', title: 'Product Price' },
+        { 'data': 'newPrice', title: 'New Price' },
         {
           data: null,
           "render": function (data, type, row, meta) {
-            return "<a href='javascript:;' class='btn btn-primary' onclick=showInPopup('" + row.Id + "'); >Edit</a>";
+            return "<a href='javascript:;' class='btn btn-primary' onclick=showInPopup('" + row.id + "'); >Edit</a>";
           }
         },
         {
           data: null,
           render: function (data, type, row) {
-            return "<a href='javascript:;' class='btn btn-danger' onclick=jQueryAjaxDelete('" + row.Id + "'); >Delete</a>";
+            return "<a href='javascript:;' class='btn btn-danger' onclick=jQueryAjaxDelete('" + row.id + "'); >Delete</a>";
           }
         },
       ]

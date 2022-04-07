@@ -19,7 +19,6 @@ namespace DAL.Repositories
         public void Add(T entity)
         {
             _context.Set<T>().Add(entity);
-            _context.SaveChanges();
         }
 
         public void AddRange(IEnumerable<T> entities)
@@ -45,7 +44,6 @@ namespace DAL.Repositories
         public void Remove(T entity)
         {
             _context.Set<T>().Remove(entity);
-            _context.SaveChanges();
         }
 
         public void RemoveRange(IEnumerable<T> entities)
@@ -56,12 +54,20 @@ namespace DAL.Repositories
         public void Update(T entity)
         {   
             _context.Set<T>().Update(entity);
-            _context.SaveChanges();
         }
 
         public bool Any(Expression<Func<T, bool>> expression)
         {
           return _context.Set<T>().Any(expression);
         }
-    }
+
+        public void SaveChanges() {
+            _context.SaveChanges();
+        }
+
+		public int Count()
+		{
+            return _context.Set<T>().Count();
+		}
+	}
 }

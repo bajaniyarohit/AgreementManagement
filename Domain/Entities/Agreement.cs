@@ -1,7 +1,5 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
+using Microsoft.AspNetCore.Identity;
 namespace Domain.Entities
 {
 	public class Agreement: General
@@ -15,5 +13,6 @@ namespace Domain.Entities
 		public decimal NewPrice { get; set; }
 		public ProductGroup ProductGroup { get; set; }
 		public Product Product{ get; set; }
+		public IdentityUser User { get; set; }
 	}
 }

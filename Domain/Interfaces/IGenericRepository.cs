@@ -16,5 +16,7 @@ namespace Domain.Interfaces
         void RemoveRange(IEnumerable<T> entities);
         void Update(T entities);
         bool Any(Expression<Func<T, bool>> expression);
+        int Count();
+        void SaveChanges();
     }
 }

@@ -1,22 +1,16 @@
-using AgreementManagementApp.Mappings;
-using AutoMapper;
 using DAL.Data;
 using DAL.Repositories;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Services.Abstract;
+using Services.Concrete;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AgreementManagementApp
 {
@@ -49,6 +43,7 @@ namespace AgreementManagementApp
 			services.AddTransient<IProductGroupRepository, ProductGroupRepository>();
 			services.AddTransient<IAgreementRepository, AgreementRepository>();
 			#endregion
+			services.AddTransient<IAgreementService, AgreementService>();
 			services.AddTransient<IUnitOfWork, UnitOfWork>();
 			services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
